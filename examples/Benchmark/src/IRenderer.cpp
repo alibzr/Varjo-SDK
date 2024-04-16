@@ -150,7 +150,7 @@ bool IRenderer::init()
         const varjo_ViewDescription viewDesc = varjo_GetViewDescription(m_session, 0);
         const float aspectRatio = static_cast<float>(viewDesc.width) / viewDesc.height;
 
-        const int width = 512;
+        const int width = 2880;
         const int height = static_cast<int>(width / aspectRatio);
         varjo_SwapChainConfig2 config{};
         config.numberOfTextures = 3;
@@ -453,7 +453,7 @@ void IRenderer::render(varjo_FrameInfo* frameInfo, const std::vector<std::vector
         // Draw the background grid.
         useGeometry(m_cubeGeometry);
 
-        drawGrid();
+        //drawGrid();
 
         for (size_t i = 0; i < instancedObjects.size(); ++i) {
             drawObjects(*instancedObjects[i], i);
@@ -538,7 +538,7 @@ glm::ivec2 IRenderer::getMirrorWindowSize()
 {
     const varjo_ViewDescription viewDesc = varjo_GetViewDescription(m_session, 0);
     const float aspectRatio = static_cast<float>(viewDesc.width) / viewDesc.height;
-    int windowWidth = 512;
+    int windowWidth = 2880;
     int windowHeight = static_cast<int>(windowWidth / aspectRatio);
     windowWidth *= 2;
     return glm::ivec2(windowWidth, windowHeight);

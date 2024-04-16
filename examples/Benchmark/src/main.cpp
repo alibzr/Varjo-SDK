@@ -419,7 +419,7 @@ int main(int argc, char** argv)
                 }
 
                 // Render into the swap chain texture.
-                renderer->render(frameInfo, {&donutObjects, &controllerObjects, &gazeObjects});
+                renderer->render(frameInfo, {/*&donutObjects, &controllerObjects, &gazeObjects*/});
 
                 controllerObjects.clear();
                 // Check if we had any errors during the frame
