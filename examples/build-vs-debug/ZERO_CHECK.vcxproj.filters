@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Repository\varjo-sdk\examples\build-vs-debug\CMakeFiles\b4fa1d529472e1e220a23b476b78c391\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{DEA83AA7-DE0C-3ACD-9A8B-303349DD7463}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

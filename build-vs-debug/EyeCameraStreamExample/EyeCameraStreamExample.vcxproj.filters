@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Repository\varjo-sdk\examples\EyeCameraStreamExample\src\EyeCameraStream.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Repository\varjo-sdk\examples\EyeCameraStreamExample\src\main.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Repository\varjo-sdk\examples\EyeCameraStreamExample\src\StreamingApplication.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Repository\varjo-sdk\examples\EyeCameraStreamExample\src\UIApplication.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Repository\varjo-sdk\examples\Common\DataStreamer.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Repository\varjo-sdk\examples\Common\Globals.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Repository\varjo-sdk\examples\Common\Session.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Repository\varjo-sdk\examples\Common\UI.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Repository\varjo-sdk\examples\Common\Undistorter.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Repository\varjo-sdk\examples\EyeCameraStreamExample\src\EyeCameraStream.hpp">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Repository\varjo-sdk\examples\EyeCameraStreamExample\src\IApplication.hpp">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Repository\varjo-sdk\examples\EyeCameraStreamExample\src\StreamingApplication.hpp">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Repository\varjo-sdk\examples\EyeCameraStreamExample\src\UIApplication.hpp">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Repository\varjo-sdk\examples\Common\DataStreamer.hpp">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Repository\varjo-sdk\examples\Common\Globals.hpp">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Repository\varjo-sdk\examples\Common\Session.hpp">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Repository\varjo-sdk\examples\Common\UI.hpp">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Repository\varjo-sdk\examples\Common\Undistorter.hpp">
+      <Filter>Common</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Repository\varjo-sdk\examples\EyeCameraStreamExample\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Application">
+      <UniqueIdentifier>{5499289F-EBA8-3C04-9D01-806FCA1EBC36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{60AE327E-EA87-3F77-8372-7104316D897A}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

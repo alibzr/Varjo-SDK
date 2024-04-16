@@ -1,0 +1,12 @@
+C:/Repository/varjo-sdk/examples/build-vs-release/CMakeFiles/copyLibs.dir
+C:/Repository/varjo-sdk/examples/build-vs-release/CMakeFiles/ALL_BUILD.dir
+C:/Repository/varjo-sdk/examples/build-vs-release/CMakeFiles/ZERO_CHECK.dir
+C:/Repository/varjo-sdk/examples/build-vs-release/Benchmark/CMakeFiles/Benchmark.dir
+C:/Repository/varjo-sdk/examples/build-vs-release/EyeCameraStreamExample/CMakeFiles/EyeCameraStreamExample.dir
+C:/Repository/varjo-sdk/examples/build-vs-release/EyeCameraStreamExample/CMakeFiles/ALL_BUILD.dir
+C:/Repository/varjo-sdk/examples/build-vs-release/GazeTrackingExample/CMakeFiles/GazeTrackingExample.dir
+C:/Repository/varjo-sdk/examples/build-vs-release/GazeTrackingExample/CMakeFiles/ALL_BUILD.dir
+C:/Repository/varjo-sdk/examples/build-vs-release/MRExample/CMakeFiles/MRExample.dir
+C:/Repository/varjo-sdk/examples/build-vs-release/MarkerExample/CMakeFiles/MarkerExample.dir
+C:/Repository/varjo-sdk/examples/build-vs-release/ChromaKeyExample/CMakeFiles/ChromaKeyExample.dir
+C:/Repository/varjo-sdk/examples/build-vs-release/MaskingTool/CMakeFiles/MaskingTool.dir
