@@ -199,7 +199,7 @@ int main(int argc, char** argv)
 
         // Initialize the varjo session
         varjo_Session* session = varjo_SessionInit();
-        varjo_SessionSetPriority(session, 1);
+        varjo_SessionSetPriority(session, 0);
 
         // Check if there was any errors while initializing.
         varjo_Error error = varjo_GetError(session);
