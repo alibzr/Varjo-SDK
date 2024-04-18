@@ -9,6 +9,11 @@
 #include <glm/gtc/matrix_transform.inl>
 #include <sstream>
 
+#include <wincodec.h>
+#include <screengrab.h>
+#include <string>
+
+
 #include "D3DShaders.hpp"
 #include "VRSHelper.hpp"
 
@@ -17,6 +22,7 @@
 // Also PIX doesn't implement 11On12 so it has to be disable from launching options (API dropdown)
 // #define USE_PIX
 using Microsoft::WRL::ComPtr;
+using namespace DirectX;
 
 namespace
 {
@@ -1806,4 +1812,23 @@ std::shared_ptr<Texture2D> D3D12RenderTexture::dxTexture(uint32_t nodeIndex) con
 Microsoft::WRL::ComPtr<ID3D12Resource> D3D12RenderTexture::dxCrossNodeTexture(uint32_t nodeIndex) const
 {
     return m_renderTextures[nodeIndex]->dxCrossNodeTexture();
+}
+
+void D3D12Renderer::saveScreenshot(const std::wstring& filename)
+{
+    printf("Made it to the saveScreenshot function!\n");
+
+    // Get the back buffer from the swap chain
+    ComPtr<ID3D12Resource> backBuffer;
+    HCHECK(m_windowSwapChain->GetBuffer(0, IID_PPV_ARGS(&backBuffer)));
+
+    // Create a WIC factory
+    ComPtr<IWICImagingFactory> wicFactory;
+    HCHECK(CoCreateInstance(CLSID_WICImagingFactory, nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&wicFactory)));
+
+    // Assume the resource is currently in the render target state
+    D3D12_RESOURCE_STATES currentState = D3D12_RESOURCE_STATE_RENDER_TARGET;
+
+    // Use ScreenGrab to save the resource to a file
+    HCHECK(SaveWICTextureToFile(m_gpuNodes[0]->getCommandQueue().Get(), backBuffer.Get(), GUID_ContainerFormatPng, filename.c_str(), currentState, currentState));
 }

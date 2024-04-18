@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <array>
 #include <numeric>
+#include <string>
+
 
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -543,3 +545,5 @@ glm::ivec2 IRenderer::getMirrorWindowSize()
     windowWidth *= 2;
     return glm::ivec2(windowWidth, windowHeight);
 }
+
+void IRenderer::saveScreenshot(const std::wstring& filename) {}

@@ -8,6 +8,7 @@
 
 #include <Varjo_d3d11.h>
 #include "IRenderer.hpp"
+#include <string>
 
 #include "Config.hpp"
 #include "Window.hpp"
@@ -176,6 +177,7 @@ public:
     bool isVrsSupported() const override;
     void finishRendering() override;
     void recreateOcclusionMesh(uint32_t viewIndex) override;
+    void saveScreenshot(const std::wstring& filename) override;
 
 protected:
     void bindRenderTarget(const RenderTargetTextures& renderTarget) override;

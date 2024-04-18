@@ -4,6 +4,8 @@
 #include <memory>
 #include <Varjo.h>
 #include <Varjo_types_layers.h>
+#include <string>
+
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/quaternion.hpp>
@@ -169,6 +171,7 @@ public:
     virtual void recreateOcclusionMesh(uint32_t viewIndex) = 0;
     virtual void finishRendering() = 0;
     void freeVarjoResources();
+    virtual void saveScreenshot(const std::wstring& filename);
 
     Window* getWindow() const { return m_window.get(); }
 

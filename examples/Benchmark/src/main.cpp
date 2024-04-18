@@ -36,6 +36,7 @@
 #include "GeometryGenerator.hpp"
 #include "GazeTracking.hpp"
 #include "D3D12Renderer.hpp"
+#include <string>
 
 #ifdef USE_VULKAN
 #include "VKRenderer.hpp"
@@ -57,6 +58,7 @@ enum class RendererType {
 }
 
 bool gotKey();
+bool screenshotRequested();
 
 struct ObjectRotation {
     glm::vec3 axis;
@@ -440,6 +442,10 @@ int main(int argc, char** argv)
                 // Sleep explicitly when not drawing. Normally sleep happens during varjo_WaitSync.
                 std::this_thread::sleep_for(std::chrono::milliseconds{50});
             }
+            if (screenshotRequested()) {
+                printf("Screenshot requested.\n");
+                renderer->saveScreenshot(L"screenshot.png");
+            }
         }
 
         if (enableProfiling) {
@@ -481,6 +487,21 @@ bool gotKey()
         if (ReadConsoleInputA(in, &input, 1, &count) && count > 0 && input.EventType == KEY_EVENT && input.Event.KeyEvent.bKeyDown) {
             if (input.Event.KeyEvent.uChar.AsciiChar == '\033') {
                 printf("Quit requested.\n");
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool screenshotRequested()
+{
+    HANDLE in = GetStdHandle(STD_INPUT_HANDLE);
+    INPUT_RECORD input;
+    DWORD count = 0;
+    while (GetNumberOfConsoleInputEvents(in, &count) && count > 0) {
+        if (ReadConsoleInputA(in, &input, 1, &count) && count > 0 && input.EventType == KEY_EVENT && input.Event.KeyEvent.bKeyDown) {
+            if (input.Event.KeyEvent.uChar.AsciiChar == '\040') {
                 return true;
             }
         }
