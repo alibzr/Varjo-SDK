@@ -37,6 +37,9 @@
 #include "GazeTracking.hpp"
 #include "D3D12Renderer.hpp"
 #include <string>
+#include <iostream>
+#include <Windows.h>
+
 
 #ifdef USE_VULKAN
 #include "VKRenderer.hpp"
@@ -65,12 +68,15 @@ struct ObjectRotation {
     float speed;
 };
 
+int s_index = 1;
+
 void createObjects(std::shared_ptr<IRenderer> renderer, bool disableAnimation, std::vector<IRenderer::Object>& object, int maxDonuts);
 
 void createController(std::shared_ptr<IRenderer> renderer, IRenderer::Object& controllerObject);
 void createGaze(std::shared_ptr<IRenderer> renderer, IRenderer::Object& gazeObject);
 
 static std::atomic_bool s_shouldExit = false;
+
 BOOL WINAPI ctrlHandler(DWORD /*dwCtrlType*/)
 {
     s_shouldExit = true;
@@ -443,8 +449,9 @@ int main(int argc, char** argv)
                 std::this_thread::sleep_for(std::chrono::milliseconds{50});
             }
             if (screenshotRequested()) {
-                printf("Screenshot requested.\n");
-                renderer->saveScreenshot(L"screenshot.png");
+                std::wstring s_filename = std::to_wstring(s_index) + L".png";
+                renderer->saveScreenshot(s_filename);
+                s_index = s_index + 1;
             }
         }
 

@@ -1818,6 +1818,9 @@ void D3D12Renderer::saveScreenshot(const std::wstring& filename)
 {
     printf("Made it to the saveScreenshot function!\n");
 
+    // Check if the device is still valid
+    HCHECK(m_device->GetDeviceRemovedReason());
+
     // Get the back buffer from the swap chain
     ComPtr<ID3D12Resource> backBuffer;
     HCHECK(m_windowSwapChain->GetBuffer(0, IID_PPV_ARGS(&backBuffer)));
@@ -1827,7 +1830,7 @@ void D3D12Renderer::saveScreenshot(const std::wstring& filename)
     HCHECK(CoCreateInstance(CLSID_WICImagingFactory, nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&wicFactory)));
 
     // Assume the resource is currently in the render target state
-    D3D12_RESOURCE_STATES currentState = D3D12_RESOURCE_STATE_RENDER_TARGET;
+    D3D12_RESOURCE_STATES currentState = D3D12_RESOURCE_STATE_PRESENT;
 
     // Use ScreenGrab to save the resource to a file
     HCHECK(SaveWICTextureToFile(m_gpuNodes[0]->getCommandQueue().Get(), backBuffer.Get(), GUID_ContainerFormatPng, filename.c_str(), currentState, currentState));

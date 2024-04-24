@@ -152,7 +152,7 @@ bool IRenderer::init()
         const varjo_ViewDescription viewDesc = varjo_GetViewDescription(m_session, 0);
         const float aspectRatio = static_cast<float>(viewDesc.width) / viewDesc.height;
 
-        const int width = 2880;
+        const int width = 512;
         const int height = static_cast<int>(width / aspectRatio);
         varjo_SwapChainConfig2 config{};
         config.numberOfTextures = 3;
@@ -540,7 +540,7 @@ glm::ivec2 IRenderer::getMirrorWindowSize()
 {
     const varjo_ViewDescription viewDesc = varjo_GetViewDescription(m_session, 0);
     const float aspectRatio = static_cast<float>(viewDesc.width) / viewDesc.height;
-    int windowWidth = 2880;
+    int windowWidth = 512;
     int windowHeight = static_cast<int>(windowWidth / aspectRatio);
     windowWidth *= 2;
     return glm::ivec2(windowWidth, windowHeight);
