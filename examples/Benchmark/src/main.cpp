@@ -39,6 +39,7 @@
 #include <string>
 #include <iostream>
 #include <Windows.h>
+#include <thread>
 
 
 #ifdef USE_VULKAN
@@ -61,7 +62,7 @@ enum class RendererType {
 }
 
 bool gotKey();
-bool screenshotRequested();
+bool screenshotRequested = false;
 
 struct ObjectRotation {
     glm::vec3 axis;
@@ -81,6 +82,70 @@ BOOL WINAPI ctrlHandler(DWORD /*dwCtrlType*/)
 {
     s_shouldExit = true;
     return TRUE;
+}
+
+void ReadFromPipe(HANDLE pipe, std::shared_ptr<IRenderer> renderer)
+{
+    char buffer[1024];
+    DWORD bytesRead;
+
+    while (true)
+    {
+        bool result = ReadFile(pipe, buffer, sizeof(buffer) - 1, &bytesRead, NULL);
+        if (result && bytesRead > 0)
+        {
+            buffer[bytesRead] = '\0'; // Null-terminate the buffer
+            std::cout << "Message from Unity: " << buffer << std::endl;
+            std::wstring s_filename = std::to_wstring(s_index) + L".png";
+            renderer->saveScreenshot(s_filename);
+            s_index = s_index + 1;
+        }
+        else if (!result)
+        {
+            DWORD error = GetLastError();
+            if (error == ERROR_BROKEN_PIPE)
+            {
+                std::cout << "Client disconnected." << std::endl;
+                break;
+            }
+            else
+            {
+                std::cerr << "Error reading from pipe. Error code: " << error << std::endl;
+            }
+        }
+    }
+}
+
+void SetupNamedPipe(std::shared_ptr<IRenderer> renderer)
+{
+    HANDLE pipe = CreateNamedPipe(
+        L"\\\\.\\pipe\\myNamedPipe",
+        PIPE_ACCESS_INBOUND,
+        PIPE_TYPE_BYTE | PIPE_READMODE_BYTE | PIPE_WAIT,
+        1,
+        1024,
+        1024,
+        NMPWAIT_USE_DEFAULT_WAIT,
+        NULL);
+
+    if (pipe == INVALID_HANDLE_VALUE) {
+        std::cerr << "Error creating named pipe. Error code: " << GetLastError() << std::endl;
+        return;
+    }
+
+    std::cout << "Waiting for connection..." << std::endl;
+
+    if (!ConnectNamedPipe(pipe, NULL)) {
+        std::cerr << "Error connecting to named pipe. Error code: " << GetLastError() << std::endl;
+        CloseHandle(pipe);
+        return;
+    }
+
+    std::cout << "Connected to the named pipe." << std::endl;
+
+    // Create a thread to handle reading from the pipe
+    std::thread readThread(ReadFromPipe, pipe, renderer);
+    readThread.detach(); // Detach the thread to keep it running independently
 }
 
 int main(int argc, char** argv)
@@ -207,7 +272,7 @@ int main(int argc, char** argv)
 
         // Initialize the varjo session
         varjo_Session* session = varjo_SessionInit();
-        varjo_SessionSetPriority(session, 1);
+        varjo_SessionSetPriority(session, 2);
 
         // Check if there was any errors while initializing.
         varjo_Error error = varjo_GetError(session);
@@ -334,6 +399,8 @@ int main(int argc, char** argv)
 
         bool visible = true;
 
+        SetupNamedPipe(renderer);
+
         while (!(gotKey() || s_shouldExit)) {
             if (renderer->getWindow()) {
                 if (!renderer->getWindow()->runEventLoop()) {
@@ -448,11 +515,6 @@ int main(int argc, char** argv)
                 // Sleep explicitly when not drawing. Normally sleep happens during varjo_WaitSync.
                 std::this_thread::sleep_for(std::chrono::milliseconds{50});
             }
-            if (screenshotRequested()) {
-                std::wstring s_filename = std::to_wstring(s_index) + L".png";
-                renderer->saveScreenshot(s_filename);
-                s_index = s_index + 1;
-            }
         }
 
         if (enableProfiling) {
@@ -481,7 +543,6 @@ int main(int argc, char** argv)
         std::cerr << e.what();
         return EXIT_FAILURE;
     }
-
     return EXIT_SUCCESS;
 }
 
@@ -501,7 +562,7 @@ bool gotKey()
     return false;
 }
 
-bool screenshotRequested()
+/*bool screenshotRequested()
 {
     HANDLE in = GetStdHandle(STD_INPUT_HANDLE);
     INPUT_RECORD input;
@@ -515,6 +576,7 @@ bool screenshotRequested()
     }
     return false;
 }
+*/
 
 float randomFloat(float min, float max)
 {

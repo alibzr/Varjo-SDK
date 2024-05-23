@@ -1833,5 +1833,5 @@ void D3D12Renderer::saveScreenshot(const std::wstring& filename)
     D3D12_RESOURCE_STATES currentState = D3D12_RESOURCE_STATE_PRESENT;
 
     // Use ScreenGrab to save the resource to a file
-    HCHECK(SaveWICTextureToFile(m_gpuNodes[0]->getCommandQueue().Get(), backBuffer.Get(), GUID_ContainerFormatPng, filename.c_str(), currentState, currentState));
+    HCHECK(SaveWICTextureToFile(m_gpuNodes[0]->getCommandQueue().Get(), backBuffer.Get(), GUID_ContainerFormatPng, filename.c_str(), currentState, currentState, nullptr, nullptr, true));
 }
